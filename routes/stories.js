@@ -27,6 +27,21 @@ router.post('/', ensureAuth, async(req, res) => {
    }
 });
 
+router.get('/', ensureAuth , async (req,res) =>{
+  try {
+       const stories = await story.find({status : 'public'})
+       .populate('user')
+       .sort({createdAt: 'desc'})
+       .lean()
+
+       res.render('stories/index',{
+           stories
+       })
+  } catch (err) {
+      console.error(err)
+  }
+})
+
 
 
 

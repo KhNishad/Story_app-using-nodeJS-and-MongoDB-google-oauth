@@ -9,10 +9,11 @@ module.exports = function (passport) {
         clientSecret: process.env.google_client_scret,
         callbackURL: "/auth/google/callback"
     },async(accessToken , refreshToken , profile , done)=>{
-
+        //  console.log(profile);
+          
        const newUser = {
            googleId: profile.id,
-           displayName: profile.name.Name,
+           displayName: profile.displayName,
            firstName: profile.name.givenName,
            lastName : profile.name.familyName,
            image : profile.photos[0].value
