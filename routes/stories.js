@@ -40,7 +40,27 @@ router.get('/', ensureAuth , async (req,res) =>{
   } catch (err) {
       console.error(err)
   }
-})
+});
+
+// edit page 
+router.get('/edit/:id', ensureAuth, async (req, res) => {
+    //console.log(req.params.id);
+    
+    const Story = await story.findOne({
+        _id: req.params.id
+    }).lean()
+    
+    if(!Story){
+        return res.render('error/404')
+    }
+    if(Story.user != req.user.id){
+        res.redirect('/stories')
+    }else{
+        res.render('stories/edit',{
+            Story
+        })
+    }
+});
 
 
 
