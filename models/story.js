@@ -23,6 +23,12 @@ const storySchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    like :{
+        type : Number
+    },
+    dislike: {
+        type: Number
+    },
 })
 module.exports = mongoose.model("story", storySchema)

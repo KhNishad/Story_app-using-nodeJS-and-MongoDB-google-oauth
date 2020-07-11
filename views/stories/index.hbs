@@ -15,9 +15,18 @@
                     <a href="/stories/user/{{user._id}}">{{user.displayName}}</a>
                 </div>
             </div>
+           
+            <div class="d">
+                <a href="/stories/like/{{_id}}" class="btn btn-danger"><i class="fas fa-thumbs-up "> {{like}}</i></a>
+                
+                <a href="/stories/dislike/{{_id}}" class="btn red"><i class="fas fa-thumbs-down "> {{dislike}}</i></a>
+
+            </div>
+         
             <div class="card-action center-align">
                 <a href="/stories/{{_id}}" class="btn grey">Read More</a>
             </div>
+            
         </div>
     </div>
     {{else}}

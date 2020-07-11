@@ -16,7 +16,7 @@ router.post('/', ensureAuth, async(req, res) => {
    try {
        req.body.user = req.user.id
        await story.create(req.body)
-       console.log("story added");
+      // console.log("story added");
        
        res.redirect('/dashboard')
 
@@ -33,7 +33,7 @@ router.get('/', ensureAuth , async (req,res) =>{
        .populate('user')
        .sort({createdAt: 'desc'})
        .lean()
-
+    console.log(stories);
        res.render('stories/index',{
            stories
        })
@@ -138,6 +138,25 @@ router.get('/user/:userId', ensureAuth, async (req, res) => {
     } catch (err) {
         console.error(err)
         res.render('error/500')
+    }
+})
+
+// like 
+router.get('/like/:id', ensureAuth, async (req, res) => {
+    try {
+        let Story = await story.findById(req.params.id).lean()
+
+        if (!Story) {
+            return res.render('error/404')
+        }
+           else {
+           console.log(Story.dislike);
+
+            res.redirect('/dashboard')
+        }
+    } catch (err) {
+        console.error(err)
+        return res.render('error/500')
     }
 })
 
