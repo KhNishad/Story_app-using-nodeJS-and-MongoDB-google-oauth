@@ -17,7 +17,12 @@
             <td><a href="/stories/index{{_id}}">{{title}}</a></td>
             <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
             <td><span class="dash-status">{{status}}</span></td>
-           
+           <td>
+               <a href="/stories/edit/{{_id}}" class="btn btn-float">
+               <i class="fas fa-edit">
+               </i></a>
+               <a href="/stories/delete/{{_id}}" class="btn red"><i class="fas fa-trash"></i></a>
+           </td>
         </tr>
         {{/each}}
     </tbody>

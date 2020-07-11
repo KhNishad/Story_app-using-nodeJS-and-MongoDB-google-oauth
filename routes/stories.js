@@ -88,6 +88,57 @@ router.put('/:id', ensureAuth, async (req, res) => {
 })
 
 
+// delete story
 
+router.get('/delete/:id', ensureAuth, async (req, res) => {
+   try {
+       await story.remove({_id : req.params.id})
+       res.redirect('/dashboard')
+   } catch (err) {
+       console.error(err)
+       return res.render('error/500');
+   }
+});
+
+
+// read more story
+router.get('/:id', ensureAuth, async (req, res) => {
+   try {
+        let storyy  = await story.findById(req.params.id)
+        .populate('user')
+        .lean()
+        console.log(storyy);
+        if(!storyy){
+            return res.render('error/404')
+        }
+        res.render('stories/show',{
+            storyy
+        })
+   } catch (err) {
+   console.error(err)
+       return res.render('error/404');
+       
+   }
+});
+
+
+// @route   GET /stories/user/:userId
+router.get('/user/:userId', ensureAuth, async (req, res) => {
+    try {
+        const stories = await story.find({
+            user: req.params.userId,
+            status: 'public',
+        })
+            .populate('user')
+            .lean()
+
+        res.render('stories/index', {
+            stories,
+        })
+    } catch (err) {
+        console.error(err)
+        res.render('error/500')
+    }
+})
 
 module.exports = router
