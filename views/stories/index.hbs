@@ -4,7 +4,7 @@
     <div class="col s12 m4">
         <div class="card">
             <div class="card-image">
-              {{{editIcon user ../user _id}}}
+                {{{editIcon user ../user _id}}}
             </div>
             <div class="card-content center-align">
                 <h5>{{title}}</h5>
@@ -16,12 +16,13 @@
                 </div>
             </div>
            
-            <div class="d">
-                <a href="/stories/like/{{_id}}" class="btn btn-danger"><i class="fas fa-thumbs-up "> {{like}}</i></a>
-                
-                <a href="/stories/dislike/{{_id}}" class="btn red"><i class="fas fa-thumbs-down "> {{dislike}}</i></a>
+            <form action="/stories/like" method="POST">
+                {{!-- <a href="/stories/like/{{_id}}" class="btn btn-danger"><i class="fas fa-thumbs-up "> {{like}}</i></a> --}}
+                <input type="hidden"  name="story_id" id="story_id" value="{{_id}}">
+                <button class="btn btn-red" type="submit"><i class="fas fa-thumbs-up ">{{like}}</i></button>
+                {{!-- <a href="/stories/dislike/{{_id}}" class="btn red"><i class="fas fa-thumbs-down "> {{dislike}}</i></a> --}}
 
-            </div>
+            </form>
          
             <div class="card-action center-align">
                 <a href="/stories/{{_id}}" class="btn grey">Read More</a>

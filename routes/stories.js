@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuth } = require('../middleware/auth')
 const story = require('../models/story')
+const like  = require('../models/like')
 
 
 // add story paage 
@@ -33,10 +34,17 @@ router.get('/', ensureAuth , async (req,res) =>{
        .populate('user')
        .sort({createdAt: 'desc'})
        .lean()
-    console.log(stories);
+
+    //    count likes
+       like.find().count(function (err, count) {
+       let countt  = count ;
+     // console.log(countt);
+   // console.log(stories);
        res.render('stories/index',{
-           stories
+           stories,
+           countt
        })
+       });
   } catch (err) {
       console.error(err)
   }
@@ -141,19 +149,54 @@ router.get('/user/:userId', ensureAuth, async (req, res) => {
     }
 })
 
-// like 
-router.get('/like/:id', ensureAuth, async (req, res) => {
+
+
+
+// like post 
+router.post('/like', ensureAuth, async (req, res) => {
     try {
-        let Story = await story.findById(req.params.id).lean()
+        req.body.user = req.user.id
 
-        if (!Story) {
-            return res.render('error/404')
-        }
-           else {
-           console.log(Story.dislike);
+         console.log(req.body.story_id);
+        const likes = await like.find({ story_id : req.body.story_id},{ user : req.body.user}).lean()
+        console.log(likes);
+       // console.log(req.body.user);
+    if(likes[0]){
+        if (likes[0].user == req.body.user) {
+            console.log(" Already Liked ");
+        } else {
+            //console.log(req.body);
+            await like.create(req.body)
+            let id = req.body.story_id;
 
-            res.redirect('/dashboard')
+            res.redirect('likeUpdate/' + id);
         }
+    }
+      
+
+    } 
+     catch (err) {
+        console.error(err)
+        res.render('error/500');
+
+    }
+});
+
+// like update
+// like 
+router.get('/likeUpdate/:id',  async (req, res) => {
+    try {
+        // story.findOneAndUpdate({ _id: req.params.id }, { $inc: { 'like': 1 } })
+
+        story.findOneAndUpdate({ _id: req.params.id },
+            { $inc: { 'like': 1 } },
+            { new: true },
+            function (err, response) {
+                console.log("up");
+            });
+       
+        res.redirect('/stories')
+
     } catch (err) {
         console.error(err)
         return res.render('error/500')
