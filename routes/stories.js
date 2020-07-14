@@ -154,26 +154,37 @@ router.get('/user/:userId', ensureAuth, async (req, res) => {
 
 // like post 
 router.post('/like', ensureAuth, async (req, res) => {
+    var status = 1;
     try {
         req.body.user = req.user.id
-
-         console.log(req.body.story_id);
-        const likes = await like.find({ story_id : req.body.story_id},{ user : req.body.user}).lean()
-        console.log(likes);
+        const likes = await like.find({ story_id : req.body.story_id}).lean()
+        // console.log(likes.length);
+        // console.log(likes[0].user);
        // console.log(req.body.user);
-    if(likes[0]){
-        if (likes[0].user == req.body.user) {
-            console.log(" Already Liked ");
-        } else {
-            //console.log(req.body);
-            await like.create(req.body)
-            let id = req.body.story_id;
-
-            res.redirect('likeUpdate/' + id);
+      console.log(likes.length);
+    if(likes.length){
+        for(var i = 0;i<likes.length;i++)
+        {
+            
+            if (likes[i].user == req.body.user) {
+                console.log(" Already Liked ")
+             var  status = 0;
+                break;
+                
+            } 
         }
+     
+    }
+    if(status == 1) {
+        //console.log(req.body);
+        await like.create(req.body)
+        let id = req.body.story_id;
+
+        res.redirect('likeUpdate/' + id);
+    }else{
+          res.redirect('/stories')
     }
       
-
     } 
      catch (err) {
         console.error(err)
