@@ -1,7 +1,9 @@
-<h6>Dashboard</h6>
-<h3>Welcome {{name}}</h3>
-<p>Here are your stories</p>
+
+<h3>Welcome to Dashboard {{name}}</h3>
+{{> _add-btn}}
+
 {{#if stories}}
+<p>Here are stories that you created</p>
 <table class="striped">
     <thead>
         <tr>
@@ -18,7 +20,7 @@
             <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
             <td><span class="dash-status">{{status}}</span></td>
            <td>
-               <a href="/stories/edit/{{_id}}" class="btn btn-float">
+               <a href="/stories/edit/{{_id}}" class="btn green">
                <i class="fas fa-edit">
                </i></a>
                <a href="/stories/delete/{{_id}}" class="btn red"><i class="fas fa-trash"></i></a>
@@ -28,5 +30,5 @@
     </tbody>
 </table>
 {{else}}
-<p>You have not created any stories</p>
+<p> Sorry !! You have not created any stories yet.</p>
 {{/if}}

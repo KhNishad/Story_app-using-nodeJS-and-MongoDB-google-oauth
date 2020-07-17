@@ -161,7 +161,7 @@ router.post('/like', ensureAuth, async (req, res) => {
         // console.log(likes.length);
         // console.log(likes[0].user);
        // console.log(req.body.user);
-      console.log(likes.length);
+      //console.log(likes.length);
     if(likes.length){
         for(var i = 0;i<likes.length;i++)
         {
@@ -213,5 +213,46 @@ router.get('/likeUpdate/:id',  async (req, res) => {
         return res.render('error/500')
     }
 })
+
+// dislike  {working on this}
+
+// router.post('/dislike', ensureAuth, async (req, res) => {
+//     var status = 1;
+//     try {
+//         req.body.user = req.user.id
+//         const dislikes = await like.find({ story_id: req.body.story_id }).lean()
+//         // console.log(likes.length);
+//         // console.log(likes[0].user);
+//         // console.log(req.body.user);
+//         console.log(dislikes.length);
+//         if (dislikes.length) {
+//             for (var i = 0; i < likes.length; i++) {
+
+//                 if (dislikes[i].user == req.body.user) {
+//                     console.log(" Already Liked ")
+//                     var status = 0;
+//                     break;
+
+//                 }
+//             }
+
+//         }
+//         if (status == 1) {
+//             //console.log(req.body);
+//             await like.create(req.body)
+//             let id = req.body.story_id;
+
+//             res.redirect('likeUpdate/' + id);
+//         } else {
+//             res.redirect('/stories')
+//         }
+
+//     }
+//     catch (err) {
+//         console.error(err)
+//         res.render('error/500');
+
+//     }
+// });
 
 module.exports = router

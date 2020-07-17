@@ -1,4 +1,5 @@
 <h1>Stories</h1>
+{{> _add-btn}}
 <div class="row">
     {{#each stories}}
     <div class="col s12 m4">
@@ -22,7 +23,15 @@
                 <button class="btn btn-red" type="submit"><i class="fas fa-thumbs-up "> {{like}}</i></button>
                 {{!-- <a href="/stories/dislike/{{_id}}" class="btn red"><i class="fas fa-thumbs-down "> {{dislike}}</i></a> --}}
 
-            </form>
+            {{!-- </form> --}}
+            {{!-- <br>
+            <form action="/stories/dislike" method="POST">
+                {{!-- <a href="/stories/like/{{_id}}" class="btn btn-danger"><i class="fas fa-thumbs-up "> {{like}}</i></a> --}}
+                {{!-- <input type="hidden" name="story_id" id="story_id" value="{{_id}}">
+                <button class="btn red" type="submit"><i class="fas fa-thumbs-up "> {{dislike}}</i></button>
+                <a href="/stories/dislike/{{_id}}" class="btn red"><i class="fas fa-thumbs-down "> {{dislike}}</i></a> --}}
+            
+            {{!-- </form> --}}
          
             <div class="card-action center-align">
                 <a href="/stories/{{_id}}" class="btn grey">Read More</a>
