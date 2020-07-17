@@ -87,6 +87,7 @@ app.use('/stories', require('./routes/stories'));
 
 
 
-const PORT  = process.env.port || 3000;
+// port to run 
+app.listen(process.env.PORT || 3000);
 
-app.listen(PORT,console.log(`server running in`));
+
