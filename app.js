@@ -89,4 +89,4 @@ app.use('/stories', require('./routes/stories'));
 
 const PORT  = process.env.port || 3000;
 
-app.listen(PORT,console.log(`server running in  ${PORT}`));
+app.listen(PORT,console.log(`server running in`));
