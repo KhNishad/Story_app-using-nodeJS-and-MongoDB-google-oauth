@@ -157,8 +157,10 @@ router.post('/like', ensureAuth, async (req, res) => {
     var status = 1;
     try {
         req.body.user = req.user.id
+      
         const likes = await like.find({ story_id : req.body.story_id}).lean()
-        // console.log(likes.length);
+        //  console.log(likes.length);
+        //  console.log(req.body.story_id);
         // console.log(likes[0].user);
        // console.log(req.body.user);
       //console.log(likes.length);
@@ -203,7 +205,7 @@ router.get('/likeUpdate/:id',  async (req, res) => {
             { $inc: { 'like': 1 } },
             { new: true },
             function (err, response) {
-                console.log("up");
+               // console.log("up");
             });
        
         res.redirect('/stories')
