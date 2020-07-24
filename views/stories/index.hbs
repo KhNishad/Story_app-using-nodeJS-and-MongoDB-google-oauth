@@ -22,10 +22,25 @@
                 <button class="btn btn-red" type="submit"><i class="fas fa-thumbs-up "> {{like}}</i></button>
 
            </form>
+           <form action="/stories/comment" method="POST">
+           <input type="hidden" name="story_id" id="story_id"  value="{{_id}}" >
+           <ul  class="display-inline">
+             <li>
+             
+                 <input type="text" name="comment" id="comment" placeholder="Comments here..">
+                 <button type="submit" class="right btn" style="display: none;">SEND</button>
+                
+            </li>
+           </ul>
+         
+           </form>
          
             <div class="card-action center-align">
+               <a href="/stories/comment/{{_id}}" class="left btn grey">  Comments</a>
+               
                 <a href="/stories/{{_id}}" class="btn grey">Read More</a>
             </div>
+            
             
         </div>
     </div>
@@ -41,9 +56,11 @@
        
 
         &copy;
-            <script>document.write(new Date().getFullYear())</script> Kh Nishad
+            <script>document.write(new Date().getFullYear())</script> Kh Nishad 
         <a href="https://www.facebook.com/kh.nishad.9"><i class="fab fa-facebook fa-2x  mx-3"></i></a>
         <a href="https://github.com/KhNishad"><i class="fab fa-github fa-2x  mx-3"></i></a>
+        <a href="https://www.linkedin.com/in/kh-nishad-793606140/"><i class="fab fa-linkedin fa-2x  mx-3"></i></a>
+
 
     </div>
 </footer>

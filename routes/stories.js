@@ -3,6 +3,7 @@ const router = express.Router();
 const { ensureAuth } = require('../middleware/auth')
 const story = require('../models/story')
 const like  = require('../models/like')
+const comments = require('../models/comments')
 
 
 // add story paage 
@@ -35,16 +36,25 @@ router.get('/', ensureAuth , async (req,res) =>{
        .sort({createdAt: 'desc'})
        .lean()
 
+         //    count comments
+         comments.find().countDocuments(function (err , count) {
+             let com_count  = count;
+            // console.log(com_count);
+             
+        
+
     //    count likes
-       like.find().count(function (err, count) {
+      like.find().countDocuments(function (err, count) {
        let countt  = count ;
+  
      // console.log(countt);
    // console.log(stories);
        res.render('stories/index',{
            stories,
-           countt
+          
        })
-       });
+       })
+         })
   } catch (err) {
       console.error(err)
   }
@@ -216,45 +226,29 @@ router.get('/likeUpdate/:id',  async (req, res) => {
     }
 })
 
-// dislike  {working on this}
+// comments 
+router.post('/comment', ensureAuth, async (req, res) => {
+    try {
+        req.body.user = req.user.id
+        await comments.create(req.body)
+       // console.log("cmnt added");
+        let id  = req.body.story_id;
 
-// router.post('/dislike', ensureAuth, async (req, res) => {
-//     var status = 1;
-//     try {
-//         req.body.user = req.user.id
-//         const dislikes = await like.find({ story_id: req.body.story_id }).lean()
-//         // console.log(likes.length);
-//         // console.log(likes[0].user);
-//         // console.log(req.body.user);
-//         console.log(dislikes.length);
-//         if (dislikes.length) {
-//             for (var i = 0; i < likes.length; i++) {
+        res.redirect('commentsUpdate/' + id)
 
-//                 if (dislikes[i].user == req.body.user) {
-//                     console.log(" Already Liked ")
-//                     var status = 0;
-//                     break;
+    } catch (err) {
+        console.error(err)
+        res.render('error/500');
 
-//                 }
-//             }
-
-//         }
-//         if (status == 1) {
-//             //console.log(req.body);
-//             await like.create(req.body)
-//             let id = req.body.story_id;
-
-//             res.redirect('likeUpdate/' + id);
-//         } else {
-//             res.redirect('/stories')
-//         }
-
-//     }
-//     catch (err) {
-//         console.error(err)
-//         res.render('error/500');
-
-//     }
-// });
+    }
+});
+// comments update
+router.get('/commentsUpdate/:id', ensureAuth , async(req,res) =>{
+    try {
+        
+    } catch (error) {
+        
+    }
+})
 
 module.exports = router

@@ -27,7 +27,7 @@ const storySchema = new mongoose.Schema({
     like :{
         type : Number
     },
-    dislike: {
+   comments: {
         type: Number
     },
 })
