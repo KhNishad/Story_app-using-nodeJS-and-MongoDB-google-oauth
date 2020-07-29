@@ -231,7 +231,7 @@ router.post('/comment', ensureAuth, async (req, res) => {
     try {
         req.body.user = req.user.id
         await comments.create(req.body)
-       // console.log("cmnt added");
+        // console.log("cmnt added");
         let id  = req.body.story_id;
 
         res.redirect('commentsUpdate/' + id)
@@ -245,7 +245,15 @@ router.post('/comment', ensureAuth, async (req, res) => {
 // comments update
 router.get('/commentsUpdate/:id', ensureAuth , async(req,res) =>{
     try {
-        
+       
+        story.findOneAndUpdate({ _id: req.params.id },
+            { $inc: { 'comments': 1 } },
+            { new: true },
+            function (err, response) {
+                 console.log("comnt up");
+            });
+
+        res.redirect('/stories')
     } catch (error) {
         
     }
