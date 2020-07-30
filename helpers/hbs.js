@@ -2,7 +2,7 @@ const moment = require('moment')
 
 module.exports = {
     formatDate: function (date) {
-     var   date = date.toString().slice(0, 25)
+     var  date = date.toString().slice(0, 25)
         return  date
     },
     truncate: function (str, len) {

@@ -125,7 +125,7 @@ router.get('/:id', ensureAuth, async (req, res) => {
         let storyy  = await story.findById(req.params.id)
         .populate('user')
         .lean()
-        console.log(storyy);
+        // console.log(storyy);
         if(!storyy){
             return res.render('error/404')
         }
@@ -273,9 +273,12 @@ router.get('/comment/:id', ensureAuth, async(req,res)=>{
         if (!cmnt) {
             res.redirect('/stories')
         } else {
-             console.log(cmnt);
+            let storyy = await story.findById(req.params.id)
+                .populate('user')
+                .lean()
             res.render('stories/comments',{
                 cmnt,
+                storyy
             })
         }
       
