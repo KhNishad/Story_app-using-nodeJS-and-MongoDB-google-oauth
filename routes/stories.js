@@ -230,6 +230,9 @@ router.get('/likeUpdate/:id',  async (req, res) => {
 router.post('/comment', ensureAuth, async (req, res) => {
     try {
         req.body.user = req.user.id
+        req.body.userName = req.user.displayName
+        req.body.image = req.user.image
+
         await comments.create(req.body)
         // console.log("cmnt added");
         let id  = req.body.story_id;
@@ -257,6 +260,32 @@ router.get('/commentsUpdate/:id', ensureAuth , async(req,res) =>{
     } catch (error) {
         
     }
+});
+// view comments 
+router.get('/comment/:id', ensureAuth, async(req,res)=>{
+//    console.log(req.params.id);
+
+    try {
+        const cmnt = await comments.find({ story_id : req.params.id}
+          
+        ).lean()
+
+        if (!cmnt) {
+            res.redirect('/stories')
+        } else {
+             console.log(cmnt);
+            res.render('stories/comments',{
+                cmnt,
+            })
+        }
+      
+
+        //   console.log(cmnt);
+    } catch (error) {
+        res.send(error);
+    }
+
+
 })
 
 module.exports = router

@@ -9,9 +9,20 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    userName :{
+        type: String
+    },
     comment :{
         type : String,
         required : true
+    },
+    time :{
+        type: Date,
+        default: Date.now
+    },
+    image :{
+        type: String,
+        
     }
 
 })
