@@ -11,7 +11,7 @@
             </div>
             <div class="card-content center-align">
                 <h5>{{title}}</h5>
-                <p>{{stripTags (truncate body 40)}}</p>
+                {{!-- <p>{{stripTags(truncate body 50)}}</p> --}}
                 <br>
                 <div class="chip">
                     <img src="{{user.image}}" alt="">
@@ -40,7 +40,7 @@
             <div class="card-action center-align">
                <a href="/stories/comment/{{_id}}" class="left btn grey">{{comments}} Comments</a>
                
-                <a href="/stories/{{_id}}" class="btn grey">Read More</a>
+                <a href="/stories/{{_id}}" class="btn grey">Read Story</a>
             </div>
             
             
